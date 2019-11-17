@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<connectionStrings>
+  <connectionString>
+    <sgbd>Teradata</sgbd>
+    <cs>Provider=Teradata;DBCName={server};Database={database};Uid={login};Pwd={password};</cs>
+    <type>OLEDB</type>
+  </connectionString>
+  <connectionString>
+    <sgbd>Access 2007</sgbd>
+    <cs>Provider=Microsoft.ACE.OLEDB.12.0;Data Source={fichier};Jet OLEDB:Database Password={password};</cs>
+    <type>OLEDB</type>
+  </connectionString>
+  <connectionString>
+    <sgbd>Access 97</sgbd>
+    <cs>Provider=Microsoft.Jet.OLEDB.4.0;Data Source={fichier};Jet OLEDB:Database Password={password};</cs>
+    <type>OLEDB</type>
+  </connectionString>
+  <connectionString>
+    <sgbd>AS/400</sgbd>
+    <cs>Provider=IBMDA400;Data Source=MY_SYSTEM_NAME;User Id=myUsername;Password=myPassword;</cs>
+    <type>OLEDB</type>
+  </connectionString>
+  <connectionString>
+    <sgbd>Lotus Notes</sgbd>
+    <cs>Driver={Lotus NotesSQL 3.01 (32-bit) ODBC DRIVER (*.nsf)};Server={server};Database={fichier};Uid={login};Pwd={password};</cs>
+    <type>ODBC</type>
+  </connectionString>
+  <connectionString>
+    <sgbd>MS Project</sgbd>
+    <cs>Provider=Microsoft.Project.OLEDB.11.0;Project Name={fichier};</cs>
+    <type>OLEDB</type>
+  </connectionString>
+  <connectionString>
+    <sgbd>Pervasive</sgbd>
+    <cs>Provider=PervasiveOLEDB;Data Source={server};</cs>
+    <type>OLEDB</type>
+  </connectionString>
+  <connectionString>
+    <sgbd>Progress</sgbd>
+    <cs>HOST={server};DB={database};UID={login};PWD={password};PORT={port};</cs>
+    <type>ODBC</type>
+  </connectionString>
+  <connectionString>
+    <sgbd>SQL Azure</sgbd>
+    <cs>Provider=SQLNCLI11;Password={password};User ID={login}@{server};Initial Catalog={database};Data Source=tcp:{server}.database.windows.net;</cs>
+    <type>OLEDB</type>
+  </connectionString>
+  <connectionString>
+    <sgbd>Sybase Advantage</sgbd>
+    <cs>Provider=Advantage OLE DB Provider;User ID={login};Data Source={fichier};Advantage Server Type=ADS_REMOTE_SERVER;</cs>
+    <type>OLEDB</type>
+  </connectionString>
+  <connectionString>
+    <sgbd>SQL Server Compact</sgbd>
+    <cs>Provider=Microsoft.SQLSERVER.CE.OLEDB.3.5;Data Source={fichier};</cs>
+    <type>OLEDB</type>
+  </connectionString>
+  <connectionString>
+    <sgbd>Valentina</sgbd>
+    <cs>Driver={Valentina ODBC Driver};Host={server};Port={port};Database={database};UID={login};PWD={password};</cs>
+    <type>ODBC</type>
+  </connectionString>
+  <connectionString>
+    <sgbd>Active Directory</sgbd>
+    <cs>Provider=ADSDSOObject;User Id={login};Password={password};</cs>
+    <type>OLEDB</type>
+  </connectionString>
+  <connectionString>
+    <sgbd>DBMaker</sgbd>
+    <cs>Provider=DMOLE52;User ID={login};Password={password};Data Source={database};</cs>
+    <type>OLEDB</type>
+  </connectionString>
+  <connectionString>
+    <sgbd>Excel97</sgbd>
+    <cs>Provider=Microsoft.ACE.OLEDB.12.0;Data Source={fichier}; Extended Properties="Excel 8.0;HDR=YES";</cs>
+    <type>OLEDB</type>
+  </connectionString>
+  <connectionString>
+    <sgbd>Excel2007</sgbd>
+    <cs>Provider=Microsoft.ACE.OLEDB.12.0;Data Source={fichier};Extended Properties="Excel 12.0 Xml;HDR=YES";</cs>
+    <type>OLEDB</type>
+  </connectionString>
+  <connectionString>
+    <sgbd>SQLBase</sgbd>
+    <cs>Provider=SQLBaseOLEDB;Data source={server};Location={database};User Id={login};Password={password};</cs>
+    <type>OLEDB</type>
+  </connectionString>
+  <connectionString>
+    <sgbd>Teradata</sgbd>
+    <cs>Provider=TDOLEDB;Data Source={server};Persist Security Info=True;User ID={login};Password={password};Session Mode=ANSI;</cs>
+    <type>OLEDB</type>
+  </connectionString>
+</connectionStrings>
