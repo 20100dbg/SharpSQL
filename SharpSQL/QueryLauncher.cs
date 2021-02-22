@@ -30,7 +30,8 @@ namespace SharpSQL
             InitializeComponent();
             dbconfig = new SQLite("URI=file:SharpSQL.sqlite");
 
-            GetConfigurations();
+
+            //GetConfigurations();
             cb_quickconnect.Items.AddRange(connexions.ToArray());
 
             InitConnexionsString();
