@@ -28,7 +28,7 @@ namespace SharpSQL
         public QueryLauncher()
         {
             InitializeComponent();
-            dbconfig = new SQLite("URI=file:SharpSQL.sqlite");
+            InitDbconfig();
 
 
             //GetConfigurations();
@@ -44,6 +44,23 @@ namespace SharpSQL
         }
 
         #region init program
+
+        public void InitDbconfig()
+        {
+            Boolean initDb = !File.Exists("SharpSQL.sqlite");
+            dbconfig = new SQLite("URI=file:SharpSQL.sqlite");
+
+            if (initDb)
+            {
+                String sql = "create table requete (nom varchar(200),requete longtext);" +
+                        "create table configuration (ConnectionString mediumtext,Database varchar(100)," +
+                        "Fichier varchar(200),Login varchar(100),Name varchar(100),Password varchar(200)," +
+                        "Port int16,Server varchar(100),SGBD varchar(100));";
+
+                QueryLauncher.dbconfig.Execute(sql);
+            }
+        }
+
 
 
         public void InitConnexionsString()
