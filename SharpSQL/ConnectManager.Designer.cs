@@ -128,7 +128,7 @@
             this.tb_server.Location = new System.Drawing.Point(117, 135);
             this.tb_server.Name = "tb_server";
             this.tb_server.Size = new System.Drawing.Size(228, 22);
-            this.tb_server.TabIndex = 77;
+            this.tb_server.TabIndex = 6;
             this.tb_server.TextChanged += new System.EventHandler(this.tb_server_TextChanged);
             // 
             // label5
@@ -145,7 +145,7 @@
             this.tb_login.Location = new System.Drawing.Point(449, 136);
             this.tb_login.Name = "tb_login";
             this.tb_login.Size = new System.Drawing.Size(192, 22);
-            this.tb_login.TabIndex = 80;
+            this.tb_login.TabIndex = 9;
             this.tb_login.TextChanged += new System.EventHandler(this.tb_login_TextChanged);
             // 
             // tb_connectionstring
@@ -154,14 +154,14 @@
             this.tb_connectionstring.Multiline = true;
             this.tb_connectionstring.Name = "tb_connectionstring";
             this.tb_connectionstring.Size = new System.Drawing.Size(524, 61);
-            this.tb_connectionstring.TabIndex = 83;
+            this.tb_connectionstring.TabIndex = 12;
             // 
             // tb_password
             // 
             this.tb_password.Location = new System.Drawing.Point(449, 164);
             this.tb_password.Name = "tb_password";
             this.tb_password.Size = new System.Drawing.Size(192, 22);
-            this.tb_password.TabIndex = 81;
+            this.tb_password.TabIndex = 10;
             this.tb_password.TextChanged += new System.EventHandler(this.tb_password_TextChanged);
             // 
             // tb_database
@@ -169,7 +169,7 @@
             this.tb_database.Location = new System.Drawing.Point(117, 191);
             this.tb_database.Name = "tb_database";
             this.tb_database.Size = new System.Drawing.Size(228, 22);
-            this.tb_database.TabIndex = 79;
+            this.tb_database.TabIndex = 8;
             this.tb_database.TextChanged += new System.EventHandler(this.tb_database_TextChanged);
             // 
             // tb_port
@@ -177,7 +177,7 @@
             this.tb_port.Location = new System.Drawing.Point(117, 163);
             this.tb_port.Name = "tb_port";
             this.tb_port.Size = new System.Drawing.Size(61, 22);
-            this.tb_port.TabIndex = 78;
+            this.tb_port.TabIndex = 7;
             this.tb_port.TextChanged += new System.EventHandler(this.tb_port_TextChanged);
             // 
             // label1
@@ -204,7 +204,7 @@
             this.b_save.Location = new System.Drawing.Point(572, 335);
             this.b_save.Name = "b_save";
             this.b_save.Size = new System.Drawing.Size(75, 25);
-            this.b_save.TabIndex = 76;
+            this.b_save.TabIndex = 21;
             this.b_save.Text = "Enregistrer";
             this.b_save.UseVisualStyleBackColor = true;
             this.b_save.Click += new System.EventHandler(this.b_save_Click);
@@ -241,7 +241,7 @@
             this.b_test.Location = new System.Drawing.Point(491, 335);
             this.b_test.Name = "b_test";
             this.b_test.Size = new System.Drawing.Size(75, 25);
-            this.b_test.TabIndex = 75;
+            this.b_test.TabIndex = 20;
             this.b_test.Text = "Tester";
             this.b_test.UseVisualStyleBackColor = true;
             this.b_test.Click += new System.EventHandler(this.b_test_Click);
@@ -278,14 +278,14 @@
             this.tb_name.Location = new System.Drawing.Point(159, 60);
             this.tb_name.Name = "tb_name";
             this.tb_name.Size = new System.Drawing.Size(186, 22);
-            this.tb_name.TabIndex = 74;
+            this.tb_name.TabIndex = 5;
             // 
             // tb_fichier
             // 
             this.tb_fichier.Location = new System.Drawing.Point(117, 236);
             this.tb_fichier.Name = "tb_fichier";
             this.tb_fichier.Size = new System.Drawing.Size(524, 22);
-            this.tb_fichier.TabIndex = 82;
+            this.tb_fichier.TabIndex = 11;
             this.tb_fichier.Click += new System.EventHandler(this.tb_fichier_Enter);
             // 
             // cb_database
@@ -295,7 +295,8 @@
             this.cb_database.Location = new System.Drawing.Point(159, 31);
             this.cb_database.Name = "cb_database";
             this.cb_database.Size = new System.Drawing.Size(157, 22);
-            this.cb_database.TabIndex = 73;
+            this.cb_database.TabIndex = 4;
+            this.cb_database.SelectedIndexChanged += new System.EventHandler(this.cb_database_SelectedIndexChanged);
             // 
             // ConnectManager
             // 

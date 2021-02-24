@@ -15,30 +15,33 @@ namespace SharpSQL
 
         //permettre le bind de paramètres
         //coloration syntaxique ?
+        ConnectManager cm;
 
         public static List<SGBD> sgbds = new List<SGBD>();
         public static List<Connexion> connexions = new List<Connexion>();
         public static List<Requete> requetes = new List<Requete>();
 
         public static IDatabase db;
-
         public static IDatabase dbconfig;
         public Boolean showConnectManager = false;
 
         public QueryLauncher()
         {
             InitializeComponent();
+            
+            //Connexion à la dbconfig. Si le fichier n'existe pas, création + init de la base
             InitDbconfig();
 
-
-            //GetConfigurations();
+            //récupère les connexions configurées
+            GetConfigConnexions();
             cb_quickconnect.Items.AddRange(connexions.ToArray());
 
-            InitConnexionsString();
-            GetXMLConnexionsString();
-
-            GetRequetes();
+            //récupère les requêtes enregistrées
+            GetConfigRequetes();
             cb_query.Items.AddRange(requetes.ToArray());
+
+            //récupère les SGBD dans le fichier XML
+            GetXMLsgbd();
 
             tb_log.AppendText("Welcome");
         }
@@ -52,7 +55,7 @@ namespace SharpSQL
 
             if (initDb)
             {
-                String sql = "create table requete (nom varchar(200),requete longtext);" +
+                String sql = "create table requete (nom varchar(200),req longtext);" +
                         "create table configuration (ConnectionString mediumtext,Database varchar(100)," +
                         "Fichier varchar(200),Login varchar(100),Name varchar(100),Password varchar(200)," +
                         "Port int16,Server varchar(100),SGBD varchar(100));";
@@ -61,10 +64,7 @@ namespace SharpSQL
             }
         }
 
-
-
-        public void InitConnexionsString()
-        {
+            /*
             sgbds.Add(new SGBD { Nom = "DB2", DefaultConnectionString = "Server={server};Database={database};UID={login};PWD={password};", typeCS = "NET" });
             sgbds.Add(new SGBD { Nom = "Firebird", DefaultConnectionString = "User={login};Password={password};Database={database};DataSource={server};Port={port};Dialect=3;Charset=NONE;Role=;Connection lifetime=15;Pooling=true;MinPoolSize=0;MaxPoolSize=50;Packet Size=8192;ServerType=0;", typeCS = "NET" });
             sgbds.Add(new SGBD { Nom = "SQLSERVER", DefaultConnectionString = "Data Source={server};Initial Catalog={database};User id={login};Password={password};", typeCS = "NET" });
@@ -76,9 +76,10 @@ namespace SharpSQL
 
             sgbds.Add(new SGBD { Nom = "OleDb", DefaultConnectionString = "Server={server};Port={port};User Id={login};Password={password};Database={database};", typeCS = "OleDb" });
             sgbds.Add(new SGBD { Nom = "ODBC", DefaultConnectionString = "Server={server};Port={port};User Id={login};Password={password};Database={database};", typeCS = "ODBC" });
-        }
+            */
+        
 
-        public void GetXMLConnexionsString()
+        public void GetXMLsgbd()
         {
             XML xmlconfig = new XML("ConnectionStrings.xml");
             DataSet data = xmlconfig.ReadData();
@@ -97,7 +98,7 @@ namespace SharpSQL
         }
 
 
-        private void GetRequetes()
+        private void GetConfigRequetes()
         {
             DataSet data = QueryLauncher.dbconfig.ReadData("SELECT ROWID, * FROM requete");
 
@@ -109,7 +110,7 @@ namespace SharpSQL
         }
 
 
-        private void GetConfigurations()
+        private void GetConfigConnexions()
         {
             DataSet data = QueryLauncher.dbconfig.ReadData("SELECT ROWID, * FROM configuration");
 
@@ -135,6 +136,7 @@ namespace SharpSQL
 
         #endregion
 
+
         public static int GetSGBD(String SGBD)
         {
             SGBD = SGBD.ToLower();//foolproof
@@ -153,8 +155,7 @@ namespace SharpSQL
             cb_quickconnect.Items.AddRange(connexions.ToArray());
         }
 
-        ConnectManager cm;
-
+        
         private void ShowConnectManager()
         {
             if (!showConnectManager)
@@ -209,12 +210,18 @@ namespace SharpSQL
 
                 if (db.Connected)
                 {
-                    status_database.Text = (db.Connected) ? "Connecté (" + db.GetDbName() + ")" : "Pas de connexion";
+                    status_database.Text = "Connecté à " + connexions[idxCon].Name +
+                                            " / DB : " + ((db.GetDbName() != "") ? db.GetDbName() : "none") +
+                                            " (" + connexions[idxCon].SGBD + ")";
                     Log("Connecté à " + connexions[idxCon].Name + " (" + connexions[idxCon].SGBD + ")");
                     b_deconnect.Enabled = true;
                 }
                 else
+                {
+                    status_database.Text = "Pas de connexion";
                     Log(db.LastError);
+                }
+                    
             }
         }
 
@@ -423,7 +430,8 @@ namespace SharpSQL
             {
                 if (String.IsNullOrWhiteSpace(nom)) nom = "Req " + DateTime.Now.Ticks;
 
-                QueryLauncher.dbconfig.Execute("INSERT INTO requete (nom, req) VALUES ('" + nom + "','" + req.Replace("'", "''") + "')");
+                int x = QueryLauncher.dbconfig.Execute("INSERT INTO requete (nom, req) VALUES ('" + nom + "','" + req.Replace("'", "''") + "')");
+                
                 Int64 id = (Int64)QueryLauncher.dbconfig.ExecuteScalar("SELECT last_insert_rowid()");
 
                 Requete r = new Requete { Id = id, Nom = nom, Req = req };
@@ -437,79 +445,6 @@ namespace SharpSQL
         }
 
 
-
-
-
-        private void TestColor()
-        {
-            //keywords (intrustions)
-            //fonctions
-            //texte entre guillemets
-            //operateurs ?
-            //commentaire
-
-            /*
-            Red 	SQL string
-            Dark green 	Comment
-            Black on silver background 	SQLCMD command
-            Magenta 	System function
-            Green 	System table, view, or table-valued function. Also, the system schemas sys and INFORMATION_SCHEMA.
-            Blue 	Keyword
-            Teal 	Line numbers or template parameter
-            Maroon 	SQL Server stored procedure
-            Dark gray 	Operators
-            */
-
-            String KEYWORDS = "(ADD|ADD CONSTRAINT|ALTER|ALTER COLUMN|ALTER TABLE|ALL|AND|ANY|AS|ASC|BACKUP DATABASE|BETWEEN|CASE|CHECK|COLUMN|CONSTRAINT|CREATE|CREATE DATABASE|CREATE INDEX|CREATE OR REPLACE VIEW|CREATE TABLE|CREATE PROCEDURE|CREATE UNIQUE INDEX|CREATE VIEW|DATABASE|DEFAULT|DELETE|DESC|DISTINCT|DROP|DROP COLUMN|DROP CONSTRAINT|DROP DATABASE|DROP DEFAULT|DROP INDEX|DROP TABLE|DROP VIEW|EXEC|EXISTS|FOREIGN KEY|FROM|FULL OUTER JOIN|GROUP BY|HAVING|IN|INDEX|INNER JOIN|INSERT INTO|INSERT INTO SELECT|IS NULL|IS NOT NULL|JOIN|LEFT JOIN|LIKE|LIMIT|NOT|NOT NULL|OR|ORDER BY|OUTER JOIN|PRIMARY KEY|PROCEDURE|RIGHT JOIN|ROWNUM|SELECT|SELECT DISTINCT|SELECT INTO|SELECT TOP|SET|TABLE|TOP|TRUNCATE TABLE|UNION|UNION ALL|UNIQUE|UPDATE|VALUES|VIEW|WHERE)";
-            String FUNCTIONS = "(ASCII|CHAR_LENGTH|CHARACTER_LENGTH|CONCAT|CONCAT_WS|FIELD|FIND_IN_SET|FORMAT|INSERT|INSTR|LCASE|LEFT|LENGTH|LOCATE|LOWER|LPAD|LTRIM|MID|POSITION|REPEAT|REPLACE|REVERSE|RIGHT|RPAD|RTRIM|SPACE|STRCMP|SUBSTR|SUBSTRING|SUBSTRING_INDEX|TRIM|UCASE|UPPER|ABS|ACOS|ASIN|ATAN|ATAN2|AVG|CEIL|CEILING|COS|COT|COUNT|DEGREES|DIV|EXP|FLOOR|GREATEST|LEAST|LN|LOG|LOG10|LOG2|MAX|MIN|MOD|PI|POW|POWER|RADIANS|RAND|ROUND|SIGN|SIN|SQRT|SUM|TAN|TRUNCATE|ADDDATE|ADDTIME|CURDATE|CURRENT_DATE|CURRENT_TIME|CURRENT_TIMESTAMP|CURTIME|DATE|DATEDIFF|DATE_ADD|DATE_FORMAT|DATE_SUB|DAY|DAYNAME|DAYOFMONTH|DAYOFWEEK|DAYOFYEAR|EXTRACT|FROM_DAYS|HOUR|LAST_DAY|LOCALTIME|LOCALTIMESTAMP|MAKEDATE|MAKETIME|MICROSECOND|MINUTE|MONTH|MONTHNAME|NOW|PERIOD_ADD|PERIOD_DIFF|QUARTER|SECOND|SEC_TO_TIME|STR_TO_DATE|SUBDATE|SUBTIME|SYSDATE|TIME|TIME_FORMAT|TIME_TO_SEC|TIMEDIFF|TIMESTAMP|TO_DAYS|WEEK|WEEKDAY|WEEKOFYEAR|YEAR|YEARWEEK|BIN|BINARY|CASE|CAST|COALESCE|CONNECTION_ID|CONV|CONVERT|CURRENT_USER|DATABASE|IF|IFNULL|ISNULL|LAST_INSERT_ID|NULLIF|SESSION_USER|SYSTEM_USER|USER|VERSION)";
-            String DATATYPES = "(BIGINT|BINARY|BIT|CHAR|CHARACTER|DATETIME|DEC|DECIMAL|FLOAT|IMAGE|INT|INTEGER|MONEY|NCHAR|NTEXT|NUMERIC|NVARCHAR|REAL|SMALLDATETIME|SMALLINT|SMALLMONEY|SQL_VARIANT|SYSNAME|TEXT|TIMESTAMP|TINYINT|UNIQUEIDENTIFIER|VARBINARY|VARCHAR)";
-            String OPERATORS = @"(+|-|*|/|%|=|!=|<|>|<>|<=|>=)";
-
-
-            Regex rex = new Regex(KEYWORDS, RegexOptions.IgnoreCase);
-            MatchCollection mc = rex.Matches(richTextBox1.Text);
-            int StartCursorPosition = richTextBox1.SelectionStart;
-            foreach (Match m in mc)
-            {
-                int startIndex = m.Index;
-                int StopIndex = m.Length;
-                richTextBox1.Select(startIndex, StopIndex);
-                richTextBox1.SelectionColor = Color.Blue;
-                richTextBox1.SelectionStart = StartCursorPosition;
-                richTextBox1.SelectionColor = Color.Black;
-            }
-
-            rex = new Regex(FUNCTIONS, RegexOptions.IgnoreCase);
-            mc = rex.Matches(richTextBox1.Text);
-            StartCursorPosition = richTextBox1.SelectionStart;
-            foreach (Match m in mc)
-            {
-                int startIndex = m.Index;
-                int StopIndex = m.Length;
-                richTextBox1.Select(startIndex, StopIndex);
-                richTextBox1.SelectionColor = Color.Magenta;
-                richTextBox1.SelectionStart = StartCursorPosition;
-                richTextBox1.SelectionColor = Color.Black;
-            }
-
-            rex = new Regex(DATATYPES, RegexOptions.IgnoreCase);
-            mc = rex.Matches(richTextBox1.Text);
-            StartCursorPosition = richTextBox1.SelectionStart;
-            foreach (Match m in mc)
-            {
-                int startIndex = m.Index;
-                int StopIndex = m.Length;
-                richTextBox1.Select(startIndex, StopIndex);
-                richTextBox1.SelectionColor = Color.DarkGreen;
-                richTextBox1.SelectionStart = StartCursorPosition;
-                richTextBox1.SelectionColor = Color.Black;
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            TestColor();
-        }
 
         private void b_utiliserRequete_Click(object sender, EventArgs e)
         {

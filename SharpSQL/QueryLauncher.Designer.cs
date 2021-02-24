@@ -55,13 +55,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lb_history = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.rb_reader = new System.Windows.Forms.RadioButton();
             this.rb_scalar = new System.Windows.Forms.RadioButton();
             this.rb_execute = new System.Windows.Forms.RadioButton();
             this.b_utiliserRequete = new System.Windows.Forms.Button();
             this.b_viderHistorique = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_result)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -82,7 +81,7 @@
             this.tb_requete.Location = new System.Drawing.Point(11, 85);
             this.tb_requete.Multiline = true;
             this.tb_requete.Name = "tb_requete";
-            this.tb_requete.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.tb_requete.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tb_requete.Size = new System.Drawing.Size(747, 103);
             this.tb_requete.TabIndex = 6;
             // 
@@ -153,7 +152,7 @@
             // 
             this.status_database.AutoSize = false;
             this.status_database.Name = "status_database";
-            this.status_database.Size = new System.Drawing.Size(200, 17);
+            this.status_database.Size = new System.Drawing.Size(240, 17);
             this.status_database.Text = "Pas de connexion";
             this.status_database.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -176,7 +175,7 @@
             // 
             this.cb_query.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_query.FormattingEnabled = true;
-            this.cb_query.Location = new System.Drawing.Point(642, 35);
+            this.cb_query.Location = new System.Drawing.Point(642, 48);
             this.cb_query.Name = "cb_query";
             this.cb_query.Size = new System.Drawing.Size(249, 22);
             this.cb_query.TabIndex = 39;
@@ -207,14 +206,14 @@
             // gérerLesConnexionsToolStripMenuItem
             // 
             this.gérerLesConnexionsToolStripMenuItem.Name = "gérerLesConnexionsToolStripMenuItem";
-            this.gérerLesConnexionsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.gérerLesConnexionsToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.gérerLesConnexionsToolStripMenuItem.Text = "Gérer les connexions";
             this.gérerLesConnexionsToolStripMenuItem.Click += new System.EventHandler(this.gérerLesConnexionsToolStripMenuItem_Click);
             // 
             // fermerToolStripMenuItem
             // 
             this.fermerToolStripMenuItem.Name = "fermerToolStripMenuItem";
-            this.fermerToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.fermerToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.fermerToolStripMenuItem.Text = "Fermer";
             this.fermerToolStripMenuItem.Click += new System.EventHandler(this.fermerToolStripMenuItem_Click);
             // 
@@ -247,20 +246,20 @@
             this.importSqlToolStripMenuItem,
             this.exportCSVToolStripMenuItem});
             this.importExportToolStripMenuItem.Name = "importExportToolStripMenuItem";
-            this.importExportToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
+            this.importExportToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
             this.importExportToolStripMenuItem.Text = "Import/Export";
             // 
             // importSqlToolStripMenuItem
             // 
             this.importSqlToolStripMenuItem.Name = "importSqlToolStripMenuItem";
-            this.importSqlToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.importSqlToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.importSqlToolStripMenuItem.Text = "Import Sql";
             this.importSqlToolStripMenuItem.Click += new System.EventHandler(this.importSqlToolStripMenuItem_Click);
             // 
             // exportCSVToolStripMenuItem
             // 
             this.exportCSVToolStripMenuItem.Name = "exportCSVToolStripMenuItem";
-            this.exportCSVToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.exportCSVToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.exportCSVToolStripMenuItem.Text = "Export CSV";
             this.exportCSVToolStripMenuItem.Click += new System.EventHandler(this.exportCSVToolStripMenuItem_Click);
             // 
@@ -299,24 +298,6 @@
             this.label2.Size = new System.Drawing.Size(65, 14);
             this.label2.TabIndex = 46;
             this.label2.Text = "Historique";
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(896, 315);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(172, 109);
-            this.richTextBox1.TabIndex = 47;
-            this.richTextBox1.Text = "";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(900, 430);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 48;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // rb_reader
             // 
@@ -370,18 +351,26 @@
             this.b_viderHistorique.UseVisualStyleBackColor = true;
             this.b_viderHistorique.Click += new System.EventHandler(this.b_viderHistorique_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(639, 31);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(138, 14);
+            this.label4.TabIndex = 54;
+            this.label4.Text = "Requêtes sauvegardées";
+            // 
             // QueryLauncher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1085, 652);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.b_viderHistorique);
             this.Controls.Add(this.b_utiliserRequete);
             this.Controls.Add(this.rb_execute);
             this.Controls.Add(this.rb_scalar);
             this.Controls.Add(this.rb_reader);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lb_history);
             this.Controls.Add(this.b_execute);
@@ -439,13 +428,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ListBox lb_history;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RadioButton rb_reader;
         private System.Windows.Forms.RadioButton rb_scalar;
         private System.Windows.Forms.RadioButton rb_execute;
         private System.Windows.Forms.Button b_utiliserRequete;
         private System.Windows.Forms.Button b_viderHistorique;
+        private System.Windows.Forms.Label label4;
     }
 }
 

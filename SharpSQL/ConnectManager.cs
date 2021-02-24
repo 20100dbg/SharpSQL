@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Data;
-using System.Data.SQLite;
 using System.Windows.Forms;
 
 namespace SharpSQL
@@ -35,26 +33,6 @@ namespace SharpSQL
                 co.SGBD = s;
                 tb_connectionstring.Text = co.BuildConnectionString();
             }
-
-            /*
-            if (cb_database.SelectedIndex > -1)
-            {
-                if (s == "Access97" || s == "Access2007" || s == "SQLite")
-                {
-                    tb_fichier.ReadOnly = false;
-                    tb_server.ReadOnly = tb_port.ReadOnly = tb_login.ReadOnly = tb_database.ReadOnly = true;
-                }
-                else if (s == "DB2" || s == "Firebird" || s == "MySql"
-                    || s == "Oracle" || s == "PostGreSql" || s == "VistaDB")
-                {
-                    tb_server.ReadOnly = tb_port.ReadOnly = tb_login.ReadOnly = tb_database.ReadOnly = false;
-                    tb_fichier.ReadOnly = true;
-                }
-                else if (s == "ODBC" || s == "OleDb")
-                {
-                    tb_server.ReadOnly = tb_port.ReadOnly = tb_login.ReadOnly = tb_database.ReadOnly = tb_fichier.ReadOnly = false;
-                }
-            }*/
         }
 
 
@@ -260,6 +238,5 @@ namespace SharpSQL
         {
             RefreshConnectionString();
         }
-
     }
 }
